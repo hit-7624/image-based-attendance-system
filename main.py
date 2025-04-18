@@ -7,7 +7,7 @@ import pickle
 
 # Lecture times in 24hr format (start, end)
 lectures = [
-    ("02:30", "03:30"),
+    ("00:00", "03:30"),
     ("01:30", "02:30"),
     ("21:30", "23:30"),
     ("11:30", "12:30"),
@@ -20,7 +20,9 @@ TIME_TABLE = {
     "Tuesday":   ["AFL", "IS", "CN", "AI", None],
     "Wednesday": ["AFL", "CN", "AI", "MIT", None],
     "Thursday":  ["AFL", "AI", "MIT", None, None],
-    "Friday":    ["IS", "MIT", "CN", None, None]
+    "Friday":    ["IS", "MIT", "CN", None, None],
+    "Saturday":  ["AI", "IS", "CN", None, None],
+    "Sunday":    ["AI", "IS", "CN", None, None]
 }
 
 # Load saved face encodings
@@ -63,7 +65,13 @@ for image_path in test_images:
             attendance.add(known_roll_numbers[best_match_index])
 
 # Save attendance
-subject_file = f"{subject}.xlsx"
+# subject_file = f"{subject}.xlsx"
+subject_file  = f"attendance/{subject}.xlsx"
+# print("Attendance file:", subject_file)
+# print(os.path.abspath(subject_file))
+if not os.path.exists("attendance"):
+    os.makedirs("attendance")
+
 print("Marking attendance for:", attendance)
 write_attendance.mark_attendance(subject_file, attendance, current_date)
 print(f"Attendance saved to {subject_file}")
