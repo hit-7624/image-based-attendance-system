@@ -22,7 +22,7 @@ TIME_TABLE = {
     "Wednesday": ["AFL", "CN", "AI", "MIT", None],
     "Thursday":  ["AFL", "AI", "MIT", None, None],
     "Friday":    ["IS", "MIT", "AI", None, None],
-    "Saturday":  ["AI", "IS", "CN", "MIT", None],
+    "Saturday":  ["AI", "IS", "Ai", "MIT", None],
     "Sunday":    ["AI", "IS", "CN", None, None]
 }
 
