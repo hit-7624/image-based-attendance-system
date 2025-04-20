@@ -28,10 +28,12 @@ def mark_attendance(path, roll_numbers, date_str):
         date_column = ws.max_column + 1
         ws.cell(row=1, column=date_column, value=date_str)
 
-    # Mark 'P' for present roll numbers
+    # Mark 'P' for present roll numbers and 'A' for absent
     for row in range(2, ws.max_row + 1):
         roll_no = ws.cell(row=row, column=1).value
         if str(roll_no) in roll_numbers:
             ws.cell(row=row, column=date_column, value='P')
+        else:
+            ws.cell(row=row, column=date_column, value='A')
 
     wb.save(path)

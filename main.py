@@ -11,7 +11,7 @@ lectures = [
     ("00:00", "03:30"),
     ("01:30", "02:30"),
     ("20:30", "23:30"),
-    ("21:00", "12:30"),
+    ("14:00", "16:30"),
     ("01:00", "03:59")  # Extra slot for testing
 ]
 
@@ -23,7 +23,7 @@ TIME_TABLE = {
     "Thursday":  ["AFL", "AI", "MIT", None, None],
     "Friday":    ["IS", "MIT", "AI", None, None],
     "Saturday":  ["AI", "IS", "Ai", "MIT", None],
-    "Sunday":    ["AI", "IS", "CN", None, None]
+    "Sunday":    ["AI", "IS", "CN", "AFL", None]
 }
 
 # Load saved face encodings
