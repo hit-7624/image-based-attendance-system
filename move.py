@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-#testing
+#testing 12345678
 
 # Detect current user and system
 current_username = getpass.getuser().lower()
