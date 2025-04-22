@@ -11,6 +11,8 @@ def load_data(file_path, sname):
     df = df.astype(str)
     return df
 
+
+
 def make_data(df):
     """Converts the DataFrame to a string format suitable for the LLM prompt."""
 #    print(df.to_string(index=False, header=True))
