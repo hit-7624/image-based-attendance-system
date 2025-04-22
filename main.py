@@ -18,7 +18,7 @@ class_timings = [
 
 WEEKLY_SCHEDULE = {
     "Monday":    ["CN", "AFL", "IS", "IS", None],
-    "Tuesday":   ["AFL", "IS", "CN", "AI", None],
+    "Tuesday":   ["MIT", "IS", "CN", "AI", None],
     "Wednesday": ["AFL", "CN", "AI", "MIT", None],
     "Thursday":  ["AFL", "AI", "MIT", None, None],
     "Friday":    ["IS", "MIT", "AI", None, None],
@@ -91,7 +91,7 @@ for img_path in class_photos:
 
 # Save attendance record
 attendance_file = f"attendance_data/{ongoing_subject}.xlsx"
-    
+
 print("Marking attendance for:", present_students)
 write_attendance.mark_attendance(attendance_file, present_students, curr_date)
 print(f"Attendance saved to {attendance_file}")
