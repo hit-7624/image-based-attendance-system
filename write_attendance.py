@@ -6,8 +6,8 @@ def create_attendance_file(excel_path):
     if not os.path.exists(excel_path):
         workbook = openpyxl.Workbook()
         sheet = workbook.active
-        sheet.title = "Attendance_Record"
-        sheet.cell(row=1, column=1, value="Student_ID")
+        sheet.title = "Sheet1"
+        sheet.cell(row=1, column=1, value="Roll Number")
         for student_num in range(1, 101):
             sheet.cell(row=student_num+1, column=1, value=student_num)
         workbook.save(excel_path)
