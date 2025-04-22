@@ -7,15 +7,15 @@ from dotenv import load_dotenv
 # Load config from env file
 load_dotenv()
 
-# Get current user info
+#which user 
 username = getpass.getuser().lower()
-system = platform.system()  # Gets Windows, Darwin, or Linux
+system = platform.system() 
 
 print(f"Detected user: {username} on {system}")
 
-# Set paths based on user's system
+#check for windows or mac
 if username == "hit" or system == "Darwin":  # Mac user settings
-    # Use Mac paths from config
+    #mac
     source_dir = os.getenv("MAC_SRC_FOLDER")
     desktop = os.path.join(os.path.expanduser("~"), "Desktop")
     target_dir = os.path.join(desktop, "project", "captured")
@@ -30,9 +30,10 @@ else:
 print(f"Source folder: {source_dir}")
 print(f"Destination folder: {target_dir}")
 
-# Make sure source exists
+#giev error if there is no folder
 if not os.path.exists(source_dir):
-    raise FileNotFoundError(f"Source folder not found: {source_dir}")
+    print(f"Source folder not found: {source_dir}")
+    exit() 
 
 # move files
 files_moved = 0
@@ -47,8 +48,8 @@ for file in os.listdir(source_dir):
         print(f"Moved: {file}")
         files_moved += 1
 
-# Show summary
+
 if files_moved > 0:
-    print(f"All {files_moved} matching files have been moved successfully.")
+    print(f"All {files_moved}  files have been moved successfully.")
 else:
     print("No matching files found to move.")
