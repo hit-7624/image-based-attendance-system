@@ -1,39 +1,40 @@
 import openpyxl
 import os
 
-def initialize_sheet_if_needed(path):
-    if not os.path.exists(path):
-        wb = openpyxl.Workbook()
-        ws = wb.active
-        ws.title = "Sheet1"
-        ws.cell(row=1, column=1, value="Roll Number")
-        for i in range(1, 101):
-            ws.cell(row=i+1, column=1, value=i)
-        wb.save(path)
+#if there no sheet then create a new sheet
+def create_attendance_file(excel_path):
+    if not os.path.exists(excel_path):
+        workbook = openpyxl.Workbook()
+        sheet = workbook.active
+        sheet.title = "Attendance_Record"
+        sheet.cell(row=1, column=1, value="Student_ID")
+        for student_num in range(1, 101):
+            sheet.cell(row=student_num+1, column=1, value=student_num)
+        workbook.save(excel_path)
 
-def mark_attendance(path, roll_numbers, date_str):
-    initialize_sheet_if_needed(path)
-    wb = openpyxl.load_workbook(path)
-    ws = wb.active
+def mark_attendance(excel_path, present_students, lecture_date):
+    create_attendance_file(excel_path)
+    workbook = openpyxl.load_workbook(excel_path)
+    sheet = workbook.active
 
-    # Check if date column exists
-    date_column = None
-    for col in range(2, ws.max_column + 1):
-        if ws.cell(row=1, column=col).value == date_str:
-            date_column = col
+    #check for the today's date column is present or not
+    today_column = None
+    for col_idx in range(2, sheet.max_column + 1):
+        if sheet.cell(row=1, column=col_idx).value == lecture_date:
+            today_column = col_idx
             break
 
-    # If not found, add new column
-    if not date_column:
-        date_column = ws.max_column + 1
-        ws.cell(row=1, column=date_column, value=date_str)
+    # Create new date column if needed
+    if not today_column:
+        today_column = sheet.max_column + 1
+        sheet.cell(row=1, column=today_column, value=lecture_date)
 
-    # Mark 'P' for present roll numbers and 'A' for absent
-    for row in range(2, ws.max_row + 1):
-        roll_no = ws.cell(row=row, column=1).value
-        if str(roll_no) in roll_numbers:
-            ws.cell(row=row, column=date_column, value='P')
+    # Update attendance status for all students 
+    for student_row in range(2, sheet.max_row + 1):
+        student_id = sheet.cell(row=student_row, column=1).value
+        if str(student_id) in present_students:
+            sheet.cell(row=student_row, column=today_column, value='P')
         else:
-            ws.cell(row=row, column=date_column, value='A')
+            sheet.cell(row=student_row, column=today_column, value='A')
 
-    wb.save(path)
+    workbook.save(excel_path)

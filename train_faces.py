@@ -2,24 +2,24 @@ import face_recognition
 import os
 import pickle
 
-training_dir = "training_data/"
-known_face_encodings = []
-known_roll_numbers = []
+student_photos_dir = "training_data/"
+face_data = []
+student_ids = []
 
 print("Training Model ...")
-for person_folder in os.listdir(training_dir):
-    person_path = os.path.join(training_dir, person_folder)
-    if os.path.isdir(person_path):
-        for image_file in os.listdir(person_path):
-            image_path = os.path.join(person_path, image_file)
-            image = face_recognition.load_image_file(image_path)
-            encodings = face_recognition.face_encodings(image)
-            if encodings:
-                known_face_encodings.append(encodings[0])
-                known_roll_numbers.append(person_folder)
+for student_folder in os.listdir(student_photos_dir):
+    student_path = os.path.join(student_photos_dir, student_folder)
+    if os.path.isdir(student_path):
+        for photo_file in os.listdir(student_path):
+            photo_path = os.path.join(student_path, photo_file)
+            student_image = face_recognition.load_image_file(photo_path)
+            face_features = face_recognition.face_encodings(student_image)
+            if face_features:
+                face_data.append(face_features[0])
+                student_ids.append(student_folder)
 
 # Save encodings
-with open("encodings.pkl", "wb") as f:
-    pickle.dump((known_face_encodings, known_roll_numbers), f)
+with open("encodings.pkl", "wb") as model_file:
+    pickle.dump((face_data, student_ids), model_file)
 
 print("Model Trained and Saved Successfully!")
