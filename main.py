@@ -11,19 +11,17 @@ class_timings = [
     ("08:00", "09:30"),
     ("09:30", "10:20"),
     ("10:30", "11:20"),
-    ("11:30", "12:20"),
-    ("02:00", "03:59") 
+    ("11:30", "14:20"),
+    ("14:00", "16:59") 
 ]
 
 
 WEEKLY_SCHEDULE = {
-    "Monday":    ["CN", "AFL", "IS", "IS", None],
-    "Tuesday":   ["MIT", "IS", "CN", "AI", None],
-    "Wednesday": ["AFL", "CN", "AI", "MIT", None],
-    "Thursday":  ["AFL", "AI", "MIT", None, None],
+    "Monday":    ["CN", "AFL", "IS", "IS", "MITLAB"],
+    "Tuesday":   ["MIT", "IS", "CN", "AI", "AILAB"],
+    "Wednesday": ["AFL", "CN", "AI", "MIT", "CNLAB"],
+    "Thursday":  ["AFL", "AI", "MIT", None, "ISLAB"],
     "Friday":    ["IS", "MIT", "AI", None, None],
-    "Saturday":  ["AI", "IS", "AI", "MIT", None],
-    "Sunday":    ["AI", "IS", "CN", "AFL", None]
 }
 
 # Load saved face encodings
