@@ -6,19 +6,19 @@ import sys
 import glob
 
 def load_data(file_path, sname):
-    """Loads data from a specific sheet in the specified Excel file."""
+    # Loads data from a specific sheet in the specified Excel file.
     df = pd.read_excel(file_path, sheet_name=sname)
     df = df.astype(str)
     return df
 
 
 def make_data(df):
-    """Converts the DataFrame to a string format suitable for the LLM prompt."""
-#    print(df.to_string(index=False, header=True))
+    # Converts the DataFrame to a string format suitable for the LLM prompt.
+    # print(df.to_string(index=False, header=True))
     return df.to_string(index=False, header=True)
 
 def ask_groq(client, data_context, query):
-    """Sends the query and data context to the Groq API and returns the answer."""
+    # Sends the query and data context to the Groq API and returns the answer.
     system_prompt = f"""You are an assistant that answers questions based ONLY on the provided data from a specific Excel sheet representing a subject's attendance.
 The data represents student attendance for a specific subject/sheet.
 - The first column is 'Roll Number'.
