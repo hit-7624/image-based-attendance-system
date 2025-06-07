@@ -1,41 +1,30 @@
 import os
 import shutil
-import getpass
-import platform
 from dotenv import load_dotenv
 
 # Load config from env file
 load_dotenv()
 
-#which user 
-username = getpass.getuser().lower()
-system = platform.system() 
+# Get paths and prefix from .env
+source_dir = os.getenv("SRC_FOLDER")
+target_dir = os.getenv("DEST_FOLDER")
+file_prefix = os.getenv("IMAGE_PREFIX")
 
-print(f"Detected user: {username} on {system}")
-
-#check for windows or mac
-if username == "hit" or system == "Darwin":  # Mac user settings
-    #mac
-    source_dir = os.getenv("MAC_SRC_FOLDER")
-    desktop = os.path.join(os.path.expanduser("~"), "Desktop")
-    target_dir = os.path.join(desktop, "project", "captured")
-    file_prefix = os.getenv("MAC_IMAGE_PREFIX")
-else: 
-    #windows
-    desktop = os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop")
-    source_dir = desktop
-    target_dir = os.getenv("WIN_DEST_FOLDER")
-    file_prefix = os.getenv("WIN_IMAGE_PREFIX")
+if not source_dir or not target_dir or not file_prefix:
+    print("Error: Please set SRC_FOLDER, DEST_FOLDER, and IMAGE_PREFIX in your .env file.")
+    exit()
 
 print(f"Source folder: {source_dir}")
 print(f"Destination folder: {target_dir}")
 
-#giev error if there is no folder
 if not os.path.exists(source_dir):
     print(f"Source folder not found: {source_dir}")
-    exit() 
+    exit()
 
-# move files
+if not os.path.exists(target_dir):
+    os.makedirs(target_dir)
+    print(f"Created destination folder: {target_dir}")
+
 files_moved = 0
 print(f"Moving files starting with: '{file_prefix}'")
 
@@ -43,13 +32,11 @@ for file in os.listdir(source_dir):
     if file.startswith(file_prefix):
         src_path = os.path.join(source_dir, file)
         dst_path = os.path.join(target_dir, file)
-        
         shutil.move(src_path, dst_path)
         print(f"Moved: {file}")
         files_moved += 1
 
-
 if files_moved > 0:
-    print(f"All {files_moved}  files have been moved successfully.")
+    print(f"All {files_moved} files have been moved successfully.")
 else:
     print("No matching files found to move.")
